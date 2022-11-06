@@ -1,0 +1,80 @@
+@import url('<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">');
+
+body {
+    font-weight: 400;
+    font-size: 14px;
+    font-family: 'Roboto','Noto Sans KR',sans-serif;
+    text-rendering: optimizeLgibility;
+    -webkit-font-smoothing: antialiased;
+    color: #181818;
+    margin: 0px;
+    padding: 0px;
+}
+
+ul, li {
+    list-style: none;
+    
+    margin: 0px;
+    padding: 0px;
+}
+
+a {
+    color: #181818;
+    text-decoration: none;
+}
+
+.header {
+    height: 80px;
+    background: #ffffff;
+    box-shadow: 0 2px 15px 0 rgba(224, 224, 224, 0.5);
+    position: relative;
+    z-index: 11;
+    /*display: inline/block/inline-block/none => style 속성을 준 객체에 대해 영향을 줌.
+    inline => 객체가 다른 객체들과 함께 놓을 때 inline으로 놓인다는 뜻
+    block => 구역을 차지해서 다음줄로 내림.
+    lnline-block => 기본적으로는 inline이되, 상위 객체의 끝에 도달하면 block 특징대로 다음줄로 내려버림.
+    none => 해당 객체를 안보이게
+
+    flex => 그 하위 객체의 정렬. */
+    display: flex;
+    justify-content: center; /*가로(행) 안에서 좌우 정렬*/
+    align-items: center; /*가로(행) 안에서 위아래 정렬*/
+}
+
+.header .logo {
+    /*relative => 상대적인. 내가 원래 있던 위치에서 움직일 것이다.
+    absolute => 절대적인. 부모 기준 위치에서 움직일 것이다.
+    fixed => 고정된. 부모, 스크롤 모두 무시한다. 기준은 body태그*/
+    position: absolute; 
+    left: 60px;
+    top: 30px;
+    width: 89px;
+}
+
+.header .logo img {
+    width: 100%;
+}
+
+.header .search_section {
+    width: 330px;
+    height: 40px;
+    background-color: #F3F3F6;
+    border-radius: 6px;
+    position: relative;
+}
+
+.header .search_section img {
+    position: absolute;
+    right: 15px;
+    top: 8px;
+}
+
+.header .search_section input {
+    border: none; 
+    width: 90%;
+    height: 38px;
+    background-color: transparent;
+    padding-left: 18px;
+    font-size: 14px;
+    box-sizing: border-box;
+}

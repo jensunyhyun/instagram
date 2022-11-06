@@ -1,0 +1,1 @@
+"use strict";define(["weblog","common/essentialData"],function(n,e){return window.CoupangWebLog?n=window.CoupangWebLog:n.init({platform:"web",service:"coupang",mode:""===e.getProfile()||"production"===e.getProfile()?"production":"test",useAutoSendPageViewLog:!1}),{sendLog:function(e,o){n.submit(e,o)}}});

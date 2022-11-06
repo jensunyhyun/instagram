@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "..\\..\\momentum"
+		},
+		{
+			"path": "..\\..\\coupang"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "coupang"
+	}
+}

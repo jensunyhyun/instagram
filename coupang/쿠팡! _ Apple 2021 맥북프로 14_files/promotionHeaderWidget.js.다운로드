@@ -1,0 +1,86 @@
+define([
+    "jquery",
+    "common/utils/cookieUtils",
+    "common/template/urlBuilder",
+    "handlebars",
+], function ($, cookieUtil, urlBuilder, Handlebars) {
+    "use strict";
+    var promotionHeaderWidgetTemplate = [
+        '<li class="promotion-header">',
+        '    {{#if topBar.leftImageUrl}}<img src="{{topBar.leftImageUrl}}" class="promotion-header-avatar" />{{/if}}',
+        // '    <span class="promotion-header-text">{{topBar.text1}} </span>',
+        '    <span class="promotion-header-text bold">{{topBar.text2}}</span>',
+        // '    <img class="promotion-header-img" src="{{topBar.rightImageUrl}}">',
+        '    <span class="triangle-down"></span>',
+        '    <img class="promotion-header-popup-img" src="{{expandedArea.banner.imageUrl}}" />',
+        "</li>",
+    ].join("");
+    var memberSrl = cookieUtil.getValue("member_srl");
+    var cacheKey = (memberSrl || "") + "promition-header-v3";
+    var $container = $("#headerMenu");
+    var localData = localStorage.getItem(cacheKey);
+
+    if (!$container.length) {
+        return;
+    }
+
+    try {
+        localData = JSON.parse(localData);
+        // expire after 1h
+        if (Date.now() - localData.expire > 1 * 60 * 60 * 1000) {
+            localData = null;
+            localStorage.removeItem(cacheKey);
+        }
+    } catch (e) {
+        localData = null;
+    }
+
+    if (!localData) {
+        $.ajax({
+            url: "//www.coupang.com/np/promotion/header",
+            data: {
+                pcid: cookieUtil.getValue("PCID"),
+                memberSrl: memberSrl,
+            },
+            type: "GET",
+            dataType: "jsonp",
+        }).then(function (data) {
+            localStorage.setItem(
+                cacheKey,
+                JSON.stringify({
+                    data: data || {},
+                    expire: Date.now(),
+                })
+            );
+            init(data);
+        });
+    } else {
+        init(localData.data);
+    }
+
+    function init(data) {
+        if (!data || !data.topBar) {
+            return;
+        }
+
+        var template = Handlebars.compile(promotionHeaderWidgetTemplate);
+        var $menu = $(template(data));
+        var $imgPopup = $menu.find(".promotion-header-popup-img");
+
+        $menu
+            .on("mouseenter", function (e) {
+                $imgPopup.show();
+            })
+            .on("mouseleave", function (e) {
+                $imgPopup.hide();
+            });
+
+        $container.prepend($menu);
+
+        $imgPopup.css({
+            left: -(data.expandedArea.banner.width / 2 - $menu.width() + 12) / 2,
+            top: "36px",
+            width: data.expandedArea.banner.width / 2 + "px",
+        });
+    }
+});
