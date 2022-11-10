@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<head>
+    <title>Document</title>
+    <link href="style.css" rel="stylesheet">
+    <style>
+        @media(max-width:600px){
+            p {background-color: pink;}
+            .desktop{display: none;}
+            .mobile{display: block;}
+        }
+        @media(min-width:600px){
+            p {background-color: skyblue;}
+            .desktop{display: block;}
+            .mobile{display: none;}
+        }
+    </style>
+</head>
+<body>
+    <img class="desktop" src="까망이.jpg"/>
+    <p>화면에 어떻게 표시되나요?</p>
+    <img class="mobile" src="까망이.jpg"/>
+</body>
+</html>
