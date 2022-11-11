@@ -47,5 +47,23 @@ document.addEventListener("DOMContentLoaded",
                 }
             }
         )
+
+        let profile_pic = document.querySelector("#profile_pic .circle_pic")
+        profile_pic.addEventListener("mouseover",
+            function(e){
+                //filter : 사진에 필터 씌우기
+                e.target.style.filter = "grayscale(50%)"
+            }
+        )
+        profile_pic.addEventListener("mouseleave",
+            function(e){
+                e.target.style.filter = "grayscale(0%)"
+            }
+        )
+        profile_pic.addEventListener("click",
+            function(e){
+                profile_pic.setAttribute("src", prompt("이미지 url을 입력해주세요"))
+            }
+        )
     }    
 )
